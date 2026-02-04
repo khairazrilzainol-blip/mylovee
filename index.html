@@ -4,48 +4,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>For You</title>
   <style>
+    /* Basic body styling */
     body {
       margin: 0;
       height: 100vh;
-      font-family: Arial, sans-serif;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      background: #fff;
+      background: linear-gradient(135deg, #ffe6f0, #fff0f5);
       overflow: hidden;
     }
 
+    /* Tap message */
     #tap {
-      font-size: 22px;
-      color: #444;
+      font-size: 24px;
+      color: #ff4d6d;
       cursor: pointer;
+      animation: bounce 1.2s infinite;
     }
 
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Main message */
     #message {
       display: none;
-      font-size: 22px;
-      line-height: 1.6;
+      font-size: 24px;
+      line-height: 1.8;
       max-width: 90%;
+      color: #ff4d6d;
+      text-shadow: 1px 1px 2px #fff;
     }
 
+    /* Hearts */
     .heart {
       position: absolute;
       bottom: -20px;
       font-size: 20px;
-      animation: floatUp 6s linear infinite;
       opacity: 0.7;
+      animation: floatUp 6s linear infinite;
     }
 
     @keyframes floatUp {
-      0% {
-        transform: translateY(0);
-        opacity: 0.7;
-      }
-      100% {
-        transform: translateY(-120vh);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+      50% { transform: translateY(-60vh) rotate(20deg); }
+      100% { transform: translateY(-120vh) rotate(-20deg); opacity: 0; }
+    }
+
+    /* Sparkles */
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #fffacd;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: sparkleUp 2s linear forwards;
+    }
+
+    @keyframes sparkleUp {
+      0% { transform: translateY(0) scale(1); opacity: 0.8; }
+      100% { transform: translateY(-30vh) scale(0.5); opacity: 0; }
     }
   </style>
 </head>
@@ -55,7 +78,7 @@
 <div id="message"></div>
 
 <script>
-  const text = "Nadiatul Nadila is my lost piece of the puzzle that I have been waiting for a very long time ❤️";
+  const text = "Azril is my lost piece of the puzzle that I have been waiting for a very long time ❤️";
   let index = 0;
   let started = false;
 
@@ -81,10 +104,22 @@
       heart.innerHTML = "❤️";
       heart.style.left = Math.random() * 100 + "vw";
       heart.style.fontSize = 16 + Math.random() * 24 + "px";
+      heart.style.transform = `rotate(${Math.random() * 360}deg)`;
       document.body.appendChild(heart);
 
       setTimeout(() => heart.remove(), 6000);
     }, 300);
+
+    // sparkles
+    setInterval(() => {
+      const sparkle = document.createElement("div");
+      sparkle.className = "sparkle";
+      sparkle.style.left = Math.random() * 100 + "vw";
+      sparkle.style.width = sparkle.style.height = 4 + Math.random() * 6 + "px";
+      document.body.appendChild(sparkle);
+
+      setTimeout(() => sparkle.remove(), 2000);
+    }, 500);
   });
 </script>
 
